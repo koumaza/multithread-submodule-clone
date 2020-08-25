@@ -2,9 +2,9 @@
 usage() {
 	cat <<EOM
 Usage: mdsubmclone.bash
-	-h          Display help		
-	-f string   Specific file		( Default: ".gitmodules" )
-	-q 					Quiet
+	-h					Display help		
+	-f	string	Specific file		( Default: ".gitmodules" )
+	-q					Quiet
 EOM
 
 	exit 2
@@ -25,6 +25,7 @@ while getopts ":f:h" optKey; do
 done
 
 if [ ! -f ${file:-.gitmodules} ]; then
+	echo 'File Not Found'
 	exit 1
 fi
 
