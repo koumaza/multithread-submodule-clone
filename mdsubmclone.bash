@@ -41,7 +41,7 @@ done
 
 while sleep 1
 do
-	if ! ps|grep git ; then
+	if ! ps|grep git 1>/dev/null ; then
 	break
 	fi
 done
