@@ -38,3 +38,10 @@ do
 	export url=$(sed -n $(($baseline + 2))p ${file:-.gitmodules} | sed -E 's/.*url.= //g')
 	clone &
 done
+
+while sleep 1
+do
+	if ! ps|grep git ; then
+	break
+	fi
+done
