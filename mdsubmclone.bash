@@ -33,7 +33,7 @@ echo "$(grep -E '\[*\]' ${file:-.gitmodules} 2>/dev/null| wc -l) submodules"
 for subm in $(cat ${file:-.gitmodules}|grep -E '\[submodule ".*"\]'|awk '{print $2}'|tr -d \"\]|tr '\n' ' ')
 do
 	export baseline=$(grep -nE "submodule \"$subm\"" ${file:-.gitmodules} | sed -e 's/:.*//g')
-	export path=$(sed -n $(($baseline + 1))p | sed -E 's/.*path.= //g')
-	export url=$(sed -n $(($baseline + 2))p | sed -E 's/.*url.= //g')
+	export path=$(sed -n $(($baseline + 1))p ${file:-.gitmodules} | sed -E 's/.*path.= //g')
+	export url=$(sed -n $(($baseline + 2))p ${file:-.gitmodules} | sed -E 's/.*url.= //g')
 	clone &
 done
