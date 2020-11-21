@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# branch not supported yet. because idk pattern
 usage() {
 	cat <<EOM
 Usage: mdsubmclone.bash
