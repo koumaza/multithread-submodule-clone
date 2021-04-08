@@ -12,7 +12,7 @@ EOM
 }
 clone() {
 	git clone --depth=1 --single-branch --recursive --shallow-submodules $uri $path 2>>.log
-	echo "clone:[$?]: $url -> $path" >>.log
+	echo "cloned:[$?]: $uri -> $path" |tee .log
 }
 while getopts ":f:h" optKey; do
 	case "$optKey" in
