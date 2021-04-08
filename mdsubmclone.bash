@@ -11,7 +11,7 @@ EOM
 	exit 2
 }
 clone() {
-	git clone --depth=1 --single-branch --recursive --shallow-submodules $url $path 2>>.log
+	git clone --depth=1 --single-branch --recursive --shallow-submodules $uri $path 2>>.log
 	echo "clone:[$?]: $url -> $path" >>.log
 }
 while getopts ":f:h" optKey; do
@@ -36,7 +36,7 @@ for subm in $(cat ${file:-.gitmodules}|grep -E '\[submodule ".*"\]'|awk '{print 
 do
 	export baseline=$(grep -nE "submodule \"$subm\"" ${file:-.gitmodules} | sed -e 's/:.*//g')
 	export path=$(sed -n $(($baseline + 1))p ${file:-.gitmodules} | sed -E 's/.*path.= //g')
-	export url=$(sed -n $(($baseline + 2))p ${file:-.gitmodules} | sed -E 's/.*url.= //g')
+	export uri=$(sed -n $(($baseline + 2))p ${file:-.gitmodules} | sed -E 's/.*url.= //g')
 	clone &
 done
 
