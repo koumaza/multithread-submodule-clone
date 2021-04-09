@@ -33,7 +33,7 @@ if [ ! -f ${file:-.gitmodules} ]; then
 	exit 1
 fi
 
-co 34 "$(grep -E '\[*\]' ${file:-.gitmodules} 2>/dev/null|grep -vE '^\;\#'| wc -l) / "$(grep -E '\[*\]' ${file:-.gitmodules} 2>/dev/null| wc -l) submodules"
+co 34 "$(grep -E '\[*\]' ${file:-.gitmodules} 2>/dev/null|grep -vE '^\;\#'| wc -l)" / "$(grep -E '\[*\]' ${file:-.gitmodules} 2>/dev/null| wc -l) submodules"
 
 for subm in $(cat ${file:-.gitmodules}|grep -vE '^\;\#'|grep -E '\[submodule ".*"\]'|awk '{print $2}'|tr -d \"\]|tr '\n' ' ')
 do
