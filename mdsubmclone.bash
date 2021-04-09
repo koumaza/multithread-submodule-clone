@@ -2,7 +2,7 @@
 # branch not supported yet. because idk pattern
 usage() {
 	cat <<EOM
-Usage: mdsubmclone.bash
+$(co 34 "Usage: mdsubmclone.bash"|tr -d '\n')
 	-h					Display help		
 	-f	string	Specific file		( Default: ".gitmodules" )
 	-q					Quiet
@@ -10,9 +10,12 @@ EOM
 
 	exit 2
 }
+co() {
+    printf "\e["$argv[1]"m""$argv[2]"'\n'
+}
 clone() {
 	git clone --depth=1 --single-branch --recursive --shallow-submodules $uri $path 2>>.log
-	echo "cloned:[$?]: $uri -> $path" |tee .log
+	co 33 "cloned:[$?]: $uri -> $path" |tee .log
 }
 while getopts ":f:h" optKey; do
 	case "$optKey" in
@@ -26,11 +29,11 @@ while getopts ":f:h" optKey; do
 done
 
 if [ ! -f ${file:-.gitmodules} ]; then
-	echo 'File Not Found'
+	co 31 'File Not Found'
 	exit 1
 fi
 
-echo "$(grep -E '\[*\]' ${file:-.gitmodules} 2>/dev/null| wc -l) submodules"
+co 34 "$(grep -E '\[*\]' ${file:-.gitmodules} 2>/dev/null|grep -vE '^\;\#'| wc -l) / "$(grep -E '\[*\]' ${file:-.gitmodules} 2>/dev/null| wc -l) submodules"
 
 for subm in $(cat ${file:-.gitmodules}|grep -vE '^\;\#'|grep -E '\[submodule ".*"\]'|awk '{print $2}'|tr -d \"\]|tr '\n' ' ')
 do
