@@ -11,7 +11,7 @@ EOM
 	exit 2
 }
 co() {
-    printf "\e["$argv[1]"m""$argv[2]"'\n'
+    echo -ne "\e["$argv[1]"m""$argv[2]"'\n'
 }
 clone() {
 	git clone --depth=1 --single-branch --recursive --shallow-submodules $uri $path 2>>.log
